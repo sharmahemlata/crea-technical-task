@@ -4,3 +4,4 @@ matplotlib
 cftime
 scipy
 netcdf4
+flake8
