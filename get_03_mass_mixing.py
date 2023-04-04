@@ -1,3 +1,6 @@
+# https://help.marine.copernicus.eu/en/articles/5029956-how-to-convert-netcdf-to-geotiff#h_088eb0feb8
+
+import xarray as xr
 import cdsapi
 import rioxarray
 import warnings
@@ -29,8 +32,14 @@ c.retrieve(
         ],
     },
     'download.nc')
-rds = rioxarray.open_rasterio("download.nc")
-rds = rds.resample(time='1D').mean()
-rds.rio.to_raster('out.tiff')
-rds.plot()
+
+nc_file = xr.open_dataset('download.nc')
+nc_file = nc_file.resample(time='1D').mean()
+
+bT = nc_file['o3']
+bT = bT.rio.set_spatial_dims(x_dim='longitude', y_dim='latitude')
+bT.rio.write_crs("epsg:4326", inplace=True)
+bT.rio.to_raster(r"out.tiff")
+
+bT.plot()
 plt.savefig("test.png")
