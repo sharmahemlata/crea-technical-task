@@ -2,7 +2,6 @@
 
 import xarray as xr
 import cdsapi
-import rioxarray
 import warnings
 import argparse
 import datetime
@@ -49,13 +48,18 @@ def get_o3_mass_mixing_geotiff(day, month, year):
     plt.savefig("out.png")
 
 
-parser = argparse.ArgumentParser(description='Build global raster (geotiff) of average Ozone mass mixing ratio at 850hPa of any given day')
-parser.add_argument('date', metavar='d', type=lambda s: datetime.datetime.strptime(s, '%d/%m/%Y'),
+parser = argparse.ArgumentParser(
+    description='Build global raster (geotiff) of \
+    average Ozone mass mixing ratio at 850hPa of any given day')
+
+parser.add_argument('date', metavar='d',
+                    type=lambda s: datetime.datetime.strptime(s, '%d/%m/%Y'),
                     help='Date in format dd/mm/yyyy')
+
 args = parser.parse_args()
 
 get_o3_mass_mixing_geotiff(
                            str(args.date.day),
-                           str(args.date.month), 
+                           str(args.date.month),
                            str(args.date.year)
                            )
