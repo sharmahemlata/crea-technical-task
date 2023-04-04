@@ -4,6 +4,7 @@ import xarray as xr
 import cdsapi
 import rioxarray
 import warnings
+
 from matplotlib import pyplot as plt
 
 warnings.filterwarnings("ignore")
@@ -42,4 +43,4 @@ bT.rio.write_crs("epsg:4326", inplace=True)
 bT.rio.to_raster(r"out.tiff")
 
 bT.plot()
-plt.savefig("test.png")
+plt.savefig("out.png")
