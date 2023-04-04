@@ -2,3 +2,5 @@ cdsapi
 rioxarray
 matplotlib
 cftime
+scipy
+netcdf4
