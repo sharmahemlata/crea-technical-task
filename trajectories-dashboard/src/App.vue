@@ -19,34 +19,66 @@ export default {
               cities: [],
               date: null,
               city: null,
-              center:[18.5754069125,73.856068875],
+              center: null,
               trajectories:[],
-              queryUrl: null
+              queryUrl: null,
+              polyline: {
+                latlngs: [[47.334852, -1.509485], [47.342596, -1.328731], [47.241487, -1.190568], [47.234787, -1.358337]],
+                color: 'blue'
+              }
           }
         },
         computed: {
           isDataLoaded() {
               return this.cities.length != 0
           }
+        
         },
+        watch : {
+               city:function(val) {
+                if (val)
+                  this.center = [this.city.geometry.latitude,this.city.geometry.longitude]
+                  this.queryChanged()
+               },
+               date : function (val) {
+                if (val)
+                  this.queryChanged()
+               },
+               trajectories: function(val){
+                console.log(this.trajectories)
+                for (var i = 0; i < this.trajectories.length; i++) {
+                    this.trajectories[i] = this.trajectories[i].reverse()
+                }
+                this.polyline.latlngs = this.trajectories
+               }
+        },
+
         mounted() {
           axios.get('https://api.energyandcleanair.org:443/cities')
           .then(response => {
             this.cities = response.data.data
             this.city = this.cities[0]
-            this.center =  [this.city.geometry.latitude,this.city.geometry.longitude]
           })
           .catch(e => {
-            this.errors.push(e)
+            console.error(e)
           })
         },
         methods: {
           queryChanged(data){
-             console.log('something-changed')
-             console.log(this.date)
-             this.queryUrl = 'https://api.energyandcleanair.org/v1/trajectories?location_id=' + 
-                        this.city.id + '&date=' +  moment.utc(this.date).format('YYYY-MM-DD')
-              console.log(this.queryUrl)
+             if (this.date && this.city)
+              this.queryUrl = 'https://api.energyandcleanair.org/v1/trajectories?location_id=' + 
+                          this.city.id.replace(' ','_') + '&date=' +  moment.utc(this.date).format('YYYY-MM-DD')
+                console.log(this.queryUrl)
+                axios.get(this.queryUrl)
+                .then(response => {
+                  if (response.data.data)
+                    this.trajectories = response.data.data[0].features[0].geometry.coordinates
+                  else
+                    console.log('No data')
+                })
+                .catch(e => {
+                  console.error(e)
+                })
           }
         }
 
@@ -56,9 +88,10 @@ export default {
 <template> 
     <div v-if="isDataLoaded" class="container">
       <div class="map">
-        <!-- <Map
+        <Map
          :center="center"
-        /> -->
+         :polyline="polyline"
+        />
       </div>
       <div class="city">
           <div>
@@ -67,14 +100,13 @@ export default {
             v-model="city"
             track-by="id"
             label="name"
-            @select="queryChanged"
             ></multiselect>
           </div>
       </div>
       <div class="date">
         <div id="app">
             <div class="center">
-              <date-picker v-model="date" valueType="format" @input="queryChanged">{{date}}</date-picker>
+              <date-picker v-model="date" valueType="format">{{date}}</date-picker>
             </div>
         </div>
       </div>
