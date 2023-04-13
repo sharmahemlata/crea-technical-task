@@ -1,23 +1,23 @@
 <script>
 
 import moment from 'moment'
-import Datepicker from 'vuejs-datepicker'
+import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/index.css';
 import axios from 'axios';
 import Multiselect from 'vue-multiselect'
 import Map from './components/Map.vue'
 
-
 export default {
         name: 'app',
         components: {
-            Datepicker,
             Multiselect,
-            Map
+            Map,
+            DatePicker
         },
         data() {
           return {
               cities: [],
-              date: new Date(),
+              date: null,
               city: null,
               center:[18.5754069125,73.856068875],
               trajectories:[],
@@ -43,16 +43,10 @@ export default {
         methods: {
           queryChanged(data){
              console.log('something-changed')
+             console.log(this.date)
              this.queryUrl = 'https://api.energyandcleanair.org/v1/trajectories?location_id=' + 
                         this.city.id + '&date=' +  moment.utc(this.date).format('YYYY-MM-DD')
               console.log(this.queryUrl)
-            //  axios.get(this.queryUrl)
-            //   .then(response => {
-            //     console.log(response.data)
-            //   })
-            //   .catch(e => {
-            //     console.log(e)
-            //   })
           }
         }
 
@@ -80,7 +74,7 @@ export default {
       <div class="date">
         <div id="app">
             <div class="center">
-                <Datepicker v-model="date"/>
+              <date-picker v-model="date" valueType="format" @input="queryChanged">{{date}}</date-picker>
             </div>
         </div>
       </div>
