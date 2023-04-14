@@ -8,7 +8,7 @@
       @update:zoom="zoomUpdated"
       @update:bounds="boundsUpdated"
     >
-      <l-polyline v-for="line in polylines" :lat-lngs="line" :color="lineColor"></l-polyline>
+      <l-polyline v-for="line in polylines" :key="line.id" :lat-lngs="line" :color="lineColor"></l-polyline>
        <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
      </l-map>
   </div>
