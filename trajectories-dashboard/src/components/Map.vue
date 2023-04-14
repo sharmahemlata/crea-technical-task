@@ -35,13 +35,6 @@ export default {
       
     };
   },
-
-  watch: {
-     polyline: function(val){
-      console.log('line changed')
-     }
-              
-     },
   methods: {
     zoomUpdated(zoom) {
       this.zoom = zoom;
