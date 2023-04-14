@@ -10,7 +10,7 @@
       @update:bounds="boundsUpdated"
     >
       <l-polyline v-for="line in polylines" :lat-lngs="line" :color="lineColor"></l-polyline>
-      <l-tile-layer :url="url"></l-tile-layer>
+       <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
      </l-map>
   </div>
 </template>
@@ -27,9 +27,13 @@ export default {
   data() {
     return {
       url: "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
+      attribution:
+        '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+
       zoom: 5,
       bounds: null,
       lineColor: 'blue'
+      
     };
   },
 
