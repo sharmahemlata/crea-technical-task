@@ -2,10 +2,11 @@
 
 import moment from 'moment'
 import DatePicker from 'vue2-datepicker';
-import 'vue2-datepicker/index.css';
 import axios from 'axios';
 import Multiselect from 'vue-multiselect'
 import Map from './components/Map.vue'
+
+import 'vue2-datepicker/index.css';
 
 export default {
         name: 'app',
@@ -95,30 +96,11 @@ export default {
 
     }
 </script>
-
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <template> 
-    <!-- <div v-if="isDataLoaded">
-      <div>
-        <Map
-         :center="center"
-         :polylines="this.polylines"
-        />
-      </div>
-      <div>
-            <multiselect
-            :options="cities"
-            v-model="city"
-            track-by="id"
-            label="name"
-            ></multiselect>
-      </div>
-      <div>
-        <date-picker v-model="date" valueType="format">{{date}}</date-picker>
-      </div>            
-    </div> -->
     <div v-if="isDataLoaded" class="container">
       <div class="header">
-        Header 
+        <h1 class="heading">Air Trajectories Dashboard</h1>
       </div>
       <div class="one">
         <Map
@@ -128,7 +110,7 @@ export default {
         </div>
       <div class="two">
         <multiselect
-            style="height: 20vh; width: 20vw;"
+            :options-limit="10"
             :options="cities"
             v-model="city"
             track-by="id"
@@ -144,10 +126,9 @@ export default {
         ></date-picker>
       </div>
       <div class="footer">
-        Footer Here
       </div>
     </div>
-
+    <div v-else>Loading</div>
 </template>
 
 <style scoped>
@@ -155,37 +136,35 @@ export default {
   display: grid;
   grid-template-columns:  1fr 2fr 2fr;
   grid-template-rows: 1fr 4fr 0.25fr;
+  row-gap: 10px;
+  column-gap: 50px;
   align-self: center;
 }
  
 .header{
   grid-row: 1/2;
   grid-column: 1/4;
-  border: solid 2px blue;
+  background-color:  #d1d1e0;
 }
 
 .one{
   grid-row: 2/3;
   grid-column: 1/2;
-  border: solid 2px pink;
 }
 .two{
   grid-row: 2/3;
   grid-column: 2/3;
-  border: solid 2px green;
 }
 
 .three{
   grid-row: 2/3;
   grid-column: 3/4;
-  border: solid 2px yellow;
 }
 
 .footer{
   grid-row: 3/4;
   grid-column: 1/4;
-  border: solid 2px orange;
+  background-color:  #d1d1e0;
 }
-
 
 </style>
