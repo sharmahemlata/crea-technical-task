@@ -24,15 +24,15 @@ export default {
               trajectories:[],
               queryUrl: null,
               apiResponse: null,
-              polylines: []
+              polylines: [],
+              message: null
 
           }
         },
         computed: {
           isDataLoaded() {
               return this.cities.length != 0
-          }
-        
+          },
         },
         watch : {
                city:function(val) {
@@ -82,10 +82,12 @@ export default {
                   if (response.data.data)
                   {
                     this.apiResponse = response.data.data[0].features
+                    this.message=null
                   }
                   else
                   {
                       console.log('No data')
+                      this.message='Data not available for ' + this.city.name + ' on ' + moment.utc(this.date).format('YYYY-MM-DD')
                   }
                 })
                 .catch(e => {
@@ -110,7 +112,8 @@ export default {
         </div>
       <div class="two">
         <multiselect
-            :options-limit="10"
+            :options-limit="15"
+            :limit="15"
             :options="cities"
             v-model="city"
             track-by="id"
@@ -125,6 +128,7 @@ export default {
         placeholder="Date"
         ></date-picker>
       </div>
+      <div class="four">{{message}}</div>
       <div class="footer">
       </div>
     </div>
@@ -135,20 +139,20 @@ export default {
 .container {
   display: grid;
   grid-template-columns:  1fr 2fr 2fr;
-  grid-template-rows: 1fr 4fr 0.25fr;
+  grid-template-rows: 1fr 2fr 2fr 0.25fr;
   row-gap: 10px;
-  column-gap: 50px;
-  align-self: center;
+  column-gap: 30px;
 }
  
 .header{
   grid-row: 1/2;
   grid-column: 1/4;
   background-color:  #d1d1e0;
+  color: black;
 }
 
 .one{
-  grid-row: 2/3;
+  grid-row: 2/4;
   grid-column: 1/2;
 }
 .two{
@@ -161,10 +165,25 @@ export default {
   grid-column: 3/4;
 }
 
-.footer{
+.four{
   grid-row: 3/4;
+  grid-column: 2/4;
+  color: red;
+}
+
+.footer{
+  grid-row: 4/5;
   grid-column: 1/4;
   background-color:  #d1d1e0;
+}
+
+.heading{
+  color: black;
+  font-size: 40px;
+  padding: auto;
+  margin-top: 10px;
+  margin-left: 20px;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 </style>
