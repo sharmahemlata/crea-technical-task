@@ -30,7 +30,7 @@ export default {
       attribution:
         '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
 
-      zoom: 5,
+      zoom: 6,
       bounds: null,
       lineColor: 'blue'
       
