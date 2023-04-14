@@ -17,7 +17,7 @@ export default {
         data() {
           return {
               cities: [],
-              date: null,
+              date: new Date(),
               city: null,
               center: null,
               trajectories:[],
@@ -97,61 +97,95 @@ export default {
 </script>
 
 <template> 
-    <div v-if="isDataLoaded" class="container">
-      <div class="map">
+    <!-- <div v-if="isDataLoaded">
+      <div>
         <Map
          :center="center"
          :polylines="this.polylines"
         />
       </div>
-      <div class="city">
-          <div>
+      <div>
             <multiselect
             :options="cities"
             v-model="city"
             track-by="id"
             label="name"
             ></multiselect>
-          </div>
       </div>
-      <div class="date">
-        <div id="app">
-            <div class="center">
-              <date-picker v-model="date" valueType="format">{{date}}</date-picker>
-            </div>
+      <div>
+        <date-picker v-model="date" valueType="format">{{date}}</date-picker>
+      </div>            
+    </div> -->
+    <div v-if="isDataLoaded" class="container">
+      <div class="header">
+        Header 
+      </div>
+      <div class="one">
+        <Map
+         :center="center"
+         :polylines="this.polylines"
+        />
         </div>
+      <div class="two">
+        <multiselect
+            style="height: 20vh; width: 20vw;"
+            :options="cities"
+            v-model="city"
+            track-by="id"
+            label="name"
+            placeholder="City"
+            ></multiselect>
+      </div>
+      <div class="three">
+        <date-picker 
+        v-model="date" 
+        valueType="format"
+        placeholder="Date"
+        ></date-picker>
+      </div>
+      <div class="footer">
+        Footer Here
       </div>
     </div>
+
 </template>
 
 <style scoped>
 .container {
   display: grid;
-  grid-template-columns:  auto auto auto auto;
-  grid-template-rows: auto auto auto;
-  height: 100%;
-  width: 20%;
+  grid-template-columns:  1fr 2fr 2fr;
+  grid-template-rows: 1fr 4fr 0.25fr;
   align-self: center;
 }
  
-.map{
-  grid-row: 1/3;
+.header{
+  grid-row: 1/2;
+  grid-column: 1/4;
+  border: solid 2px blue;
+}
+
+.one{
+  grid-row: 2/3;
   grid-column: 1/2;
   border: solid 2px pink;
 }
-.city{
-  grid-row: 1/2;
+.two{
+  grid-row: 2/3;
   grid-column: 2/3;
   border: solid 2px green;
 }
 
-.date{
-  grid-row: 1/2;
+.three{
+  grid-row: 2/3;
   grid-column: 3/4;
   border: solid 2px yellow;
 }
-.center {
-        width: 50%;
-        margin: 0 auto;
-    }
+
+.footer{
+  grid-row: 3/4;
+  grid-column: 1/4;
+  border: solid 2px orange;
+}
+
+
 </style>

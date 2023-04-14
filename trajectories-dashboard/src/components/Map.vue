@@ -1,8 +1,8 @@
 <template>
-  <div style="height: 90vh; width: 90vw;">
+  <div>
     <l-map
       ref="map"
-      style="height: 90vh; width: 90vw;"
+      style="height: 70vh; width: 60vw;"
       :zoom="zoom"
       :center="center"
       @update:zoom="zoomUpdated"
@@ -12,7 +12,6 @@
       <l-polyline v-for="line in polylines" :lat-lngs="line" :color="lineColor"></l-polyline>
       <l-tile-layer :url="url"></l-tile-layer>
      </l-map>
-    <div>zoom: {{zoom}}, center: {{center}}</div>
   </div>
 </template>
 
