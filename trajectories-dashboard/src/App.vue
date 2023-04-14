@@ -22,10 +22,9 @@ export default {
               center: null,
               trajectories:[],
               queryUrl: null,
-              polyline: {
-                latlngs: [[47.334852, -1.509485], [47.342596, -1.328731], [47.241487, -1.190568], [47.234787, -1.358337]],
-                color: 'blue'
-              }
+              apiResponse: null,
+              polylines: []
+
           }
         },
         computed: {
@@ -36,20 +35,28 @@ export default {
         },
         watch : {
                city:function(val) {
-                if (val)
+                if (val){
                   this.center = [this.city.geometry.latitude,this.city.geometry.longitude]
                   this.queryChanged()
+                }
+
                },
                date : function (val) {
-                if (val)
+                if (val){
                   this.queryChanged()
-               },
-               trajectories: function(val){
-                console.log(this.trajectories)
-                for (var i = 0; i < this.trajectories.length; i++) {
-                    this.trajectories[i] = this.trajectories[i].reverse()
                 }
-                this.polyline.latlngs = this.trajectories
+               },
+               apiResponse: function(val){
+                this.trajectories = []
+                for(var i=0; i < this.apiResponse.length ; i++){
+                  
+                  for (var j=0; j<this.apiResponse[i].geometry.coordinates.length;j++){
+                    this.apiResponse[i].geometry.coordinates[j] = this.apiResponse[i].geometry.coordinates[j].reverse()
+                  }
+                  this.trajectories.push(this.apiResponse[i].geometry.coordinates)
+                }
+                console.log(this.trajectories.length)                
+                this.polylines = this.trajectories
                }
         },
 
@@ -72,9 +79,13 @@ export default {
                 axios.get(this.queryUrl)
                 .then(response => {
                   if (response.data.data)
-                    this.trajectories = response.data.data[0].features[0].geometry.coordinates
+                  {
+                    this.apiResponse = response.data.data[0].features
+                  }
                   else
-                    console.log('No data')
+                  {
+                      console.log('No data')
+                  }
                 })
                 .catch(e => {
                   console.error(e)
@@ -90,7 +101,7 @@ export default {
       <div class="map">
         <Map
          :center="center"
-         :polyline="polyline"
+         :polylines="this.polylines"
         />
       </div>
       <div class="city">
@@ -116,10 +127,10 @@ export default {
 <style scoped>
 .container {
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns:  auto auto auto auto;
   grid-template-rows: auto auto auto;
   height: 100%;
-  width: 100%;
+  width: 20%;
   align-self: center;
 }
  
