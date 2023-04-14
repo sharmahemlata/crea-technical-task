@@ -6,7 +6,6 @@
       :zoom="zoom"
       :center="center"
       @update:zoom="zoomUpdated"
-      @update:center="centerUpdated"
       @update:bounds="boundsUpdated"
     >
       <l-polyline v-for="line in polylines" :lat-lngs="line" :color="lineColor"></l-polyline>
