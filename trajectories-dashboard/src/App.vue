@@ -18,7 +18,7 @@ export default {
         data() {
           return {
               cities: [],
-              date: new Date(),
+              date: new Date().toISOString().slice(0,10),
               city: null,
               center: null,
               trajectories:[],
@@ -75,7 +75,7 @@ export default {
           queryChanged(data){
              if (this.date && this.city)
               this.queryUrl = 'https://api.energyandcleanair.org/v1/trajectories?location_id=' + 
-                          this.city.id.replace(' ','_') + '&date=' +  moment.utc(this.date).format('YYYY-MM-DD')
+                          this.city.id + '&date=' +  moment.utc(this.date).format('YYYY-MM-DD')
                 console.log(this.queryUrl)
                 axios.get(this.queryUrl)
                 .then(response => {
