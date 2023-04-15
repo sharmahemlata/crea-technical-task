@@ -4,6 +4,7 @@
  
 ### Task 1: Help Rosa store files for her experiments
 
+---
 ### Task 2: Collect Ozone mass mixing ratio at 850hPa
 
 #### Prerequisites
@@ -47,6 +48,7 @@ python get_03_mass_mixing.py 12/01/2020
 ls
 crea_env  download.nc  get_03_mass_mixing.py  out.png  out.tiff  requirements.txt
 ```
+---
 ### Task 3 [Option B]: Create a new trajectory dashboard
 
 #### Prerequites 
