@@ -50,13 +50,13 @@ export default {
                apiResponse: function(val){
                 this.trajectories = []
                 for(var i=0; i < this.apiResponse.length ; i++){
-                  
+
                   for (var j=0; j<this.apiResponse[i].geometry.coordinates.length;j++){
                     this.apiResponse[i].geometry.coordinates[j] = this.apiResponse[i].geometry.coordinates[j].reverse()
                   }
                   this.trajectories.push(this.apiResponse[i].geometry.coordinates)
                 }
-                console.log(this.trajectories.length)                
+                console.log(this.trajectories.length)
                 this.polylines = this.trajectories
                }
         },
@@ -74,7 +74,8 @@ export default {
         methods: {
           queryChanged(data){
              if (this.date && this.city)
-              this.queryUrl = 'https://api.energyandcleanair.org/v1/trajectories?location_id=' + 
+              {
+                this.queryUrl = 'https://api.energyandcleanair.org/v1/trajectories?location_id=' +
                           this.city.id + '&date=' +  moment.utc(this.date).format('YYYY-MM-DD')
                 console.log(this.queryUrl)
                 axios.get(this.queryUrl)
@@ -95,95 +96,91 @@ export default {
                 })
           }
         }
+        }
 
     }
 </script>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
-<template> 
-    <div v-if="isDataLoaded" class="container">
-      <div class="header">
-        <h1 class="heading">Air Trajectories Dashboard</h1>
-      </div>
-      <div class="one">
-        <Map
-         :center="center"
-         :polylines="this.polylines"
-        />
-        </div>
-      <div class="two">
-        <multiselect
-            :options-limit="15"
-            :limit="15"
-            :options="cities"
-            v-model="city"
-            track-by="id"
-            label="name"
-            placeholder="City"
-            ></multiselect>
-      </div>
-      <div class="three">
-        <date-picker 
-        v-model="date" 
+<template>
+  <div v-if="isDataLoaded" class="container">
+    <div class="header">
+      <h1 class="heading">Air Trajectories Dashboard</h1>
+    </div>
+    <div class="one">
+      <Map :center="center" :polylines="this.polylines" />
+    </div>
+    <div class="two">
+      <multiselect
+        :options-limit="15"
+        :limit="15"
+        :options="cities"
+        v-model="city"
+        track-by="id"
+        label="name"
+        placeholder="City"
+      ></multiselect>
+    </div>
+    <div class="three">
+      <date-picker
+        v-model="date"
         valueType="format"
         placeholder="Date"
-        ></date-picker>
-      </div>
-      <div class="four">{{message}}</div>
-      <div class="footer">
-      </div>
+      ></date-picker>
     </div>
-    <div v-else>Loading</div>
+    <div class="four">{{message}}</div>
+    <div class="footer"></div>
+  </div>
+  <div v-else>Loading</div>
 </template>
 
 <style scoped>
 .container {
   display: grid;
-  grid-template-columns:  1fr 2fr 2fr;
+  grid-template-columns: 1fr 2fr 2fr;
   grid-template-rows: 1fr 2fr 2fr 0.25fr;
   row-gap: 10px;
   column-gap: 30px;
 }
- 
-.header{
+
+.header {
   grid-row: 1/2;
   grid-column: 1/4;
-  background-color:  #d1d1e0;
+  background-color: #d1d1e0;
   color: black;
 }
 
-.one{
+.one {
   grid-row: 2/4;
   grid-column: 1/2;
 }
-.two{
+.two {
   grid-row: 2/3;
   grid-column: 2/3;
 }
 
-.three{
+.three {
   grid-row: 2/3;
   grid-column: 3/4;
 }
 
-.four{
+.four {
   grid-row: 3/4;
   grid-column: 2/4;
   color: red;
 }
 
-.footer{
+.footer {
   grid-row: 4/5;
   grid-column: 1/4;
-  background-color:  #d1d1e0;
+  background-color: #d1d1e0;
 }
 
-.heading{
+.heading {
   color: black;
   font-size: 40px;
   padding: auto;
   margin-top: 10px;
   margin-left: 20px;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
-
 </style>

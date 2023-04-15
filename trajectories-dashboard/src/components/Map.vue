@@ -2,15 +2,20 @@
   <div>
     <l-map
       ref="map"
-      style="height: 70vh; width: 60vw;"
+      style="height: 70vh; width: 60vw"
       :zoom="zoom"
       :center="center"
       @update:zoom="zoomUpdated"
       @update:bounds="boundsUpdated"
     >
-      <l-polyline v-for="line in polylines" :key="line.id" :lat-lngs="line" :color="lineColor"></l-polyline>
-       <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-     </l-map>
+      <l-polyline
+        v-for="line in polylines"
+        :key="line.id"
+        :lat-lngs="line"
+        :color="lineColor"
+      ></l-polyline>
+      <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
+    </l-map>
   </div>
 </template>
 
@@ -32,7 +37,7 @@ export default {
       zoom: 6,
       bounds: null,
       lineColor: 'blue'
-      
+
     };
   },
   methods: {
