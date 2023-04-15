@@ -3,15 +3,16 @@
 -  [Assignment Description](https://energyandcleanair.notion.site/Technical-Assignment-Software-Engineer-314bdd68862b400d90f76ed445be46bd)
  
 ## Task 1: Help Rosa store files for her experiments
-Objective: Find a **low-cost** storage solution to help rosa store hundereds of GiBs of python generatored files **easily** 
+
+**Objective**: Find a **low-cost** storage solution to help rosa store hundereds of GiBs of python generated files **easily** 
 
 #### Solution 1: [Cloud Firestore](https://firebase.google.com/docs/firestore/)
 - Pros
-    - Firestore is serverless, so are only charged for the reads and writes. It makes it [low cost](https://cloud.google.com/firestore/pricing). 
+    - Firestore is serverless, so you are only charged for total reads and writes performed. This makes it [low cost](https://cloud.google.com/firestore/pricing). 
     - Firebase has a [python client](https://firebase.google.com/docs/reference/admin/python/), therefore the file uploading can be automated using python. 
-    - Firestore is serverless 
+    - The documentation is clear and concise.
 - Cons
-
+    - Requires you to store data in a specific JSON like structure.
 
 #### Solution 2: [GCP Buckets](https://cloud.google.com/storage/docs/buckets)
 
@@ -21,9 +22,6 @@ Objective: Find a **low-cost** storage solution to help rosa store hundereds of 
     - GCP has [python client](https://github.com/googleapis/google-cloud-python#google-cloud-python-client), therefore the file uploading can be automated using python. 
 - Cons
     - Cannot have nested buckets
-
-
-
 ---
 ## Task 2: Collect Ozone mass mixing ratio at 850hPa
 
