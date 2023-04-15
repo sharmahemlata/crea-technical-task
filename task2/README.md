@@ -11,17 +11,13 @@
 	verify: 0
 	```
 #### Setup 
-- Navigate to __task2__ directory
-```bash
-cd task2
-```
--  create virtualenv crea_env
+-  Create virtualenv crea_env
 ```bash
 virtualenv crea_env
 ```
 - Activate virtual environment
 ```bash
-$ source crea_env/bin/activate
+source crea_env/bin/activate
 ```
 - Install Requirements 
 ```bash
@@ -32,7 +28,7 @@ pip install -r requirements.txt
 - The python file __get_O3_mass_mixing.py__ allows you to build a global raster via cli
 
 ```bash
-$ python get_O3_mass_mixing.py -h
+python get_O3_mass_mixing.py -h
 
 usage: get_O3_mass_mixing.py [-h] d
 

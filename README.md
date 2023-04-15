@@ -40,13 +40,13 @@
 ```bash
 cd task2
 ```
--  create virtualenv crea_env
+-  Create virtualenv crea_env
 ```bash
 virtualenv crea_env
 ```
 - Activate virtual environment
 ```bash
-$ source crea_env/bin/activate
+source crea_env/bin/activate
 ```
 - Install Requirements 
 ```bash
@@ -106,7 +106,7 @@ npm install
 ```bash
 npm run  dev
 ```
--  Point your browser to http://localhost:8081. You should see the following dashboard
+-  Point your browser to http://localhost:8081. You should see the following dashboard:
 ![Dashboard](images/dashboard.png)
 
 - Please select City and Date from the dropdown menus. 
