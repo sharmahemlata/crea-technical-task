@@ -28,16 +28,33 @@ $ source crea_env/bin/activate
 pip install -r requirements.txt 
 ```
 #### Build ozone_mass_mixing_ratio global raster
+
+- The python file __get_O3_mass_mixing.py__ allows you to build a global raster via cli
+
+```bash
+$ python get_O3_mass_mixing.py -h
+
+usage: get_O3_mass_mixing.py [-h] d
+
+Build global raster (geotiff) of average Ozone mass mixing ratio at 850hPa of any given day
+
+positional arguments:
+  d           Date in format dd/mm/yyyy
+
+options:
+  -h, --help  show this help message and exit
+
+```
 - To to build global raster (geotiff) of average Ozone mass mixing ratio at 850hPa of any given day run
 ```bash
-python get_03_mass_mixing.py dd/mm/yyyy 
+python get_O3_mass_mixing.py dd/mm/yyyy 
 ```
 - Example: For 12th Jan 2020, run
 ```bash
-python get_03_mass_mixing.py 12/01/2020 
+python get_O3_mass_mixing.py 12/01/2020 
 ```
 - A geotiff file '__out.tiff__' will be produced alongside a png file '__out.png__'  in the task2 diretory
 ```bash
 ls
-crea_env  download.nc  get_03_mass_mixing.py  out.png  out.tiff  requirements.txt
+crea_env  download.nc  get_O3_mass_mixing.py  out.png  out.tiff  requirements.txt
 ```
