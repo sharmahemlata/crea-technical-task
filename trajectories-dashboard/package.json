@@ -15,7 +15,7 @@
     "vue-multiselect": "^2.1.7",
     "vue2-datepicker": "^3.11.1",
     "vue2-leaflet": "^2.7.1",
-    "vue2-leaflet-draw-toolbar": "^0.1.1"
+    "vuejs2-datepicker": "^2.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-legacy": "^2.0.0",
