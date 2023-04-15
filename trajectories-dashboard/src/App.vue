@@ -128,7 +128,7 @@ export default {
     <div class="four">{{message}}</div>
     <div class="footer"></div>
   </div>
-  <div v-else>Loading</div>
+  <div v-else class="loading"><img src="./images/loading.gif"/></div>
 </template>
 
 <style scoped>
@@ -181,4 +181,9 @@ export default {
   margin-left: 20px;
   font-family: "Courier New", Courier, monospace;
 }
+
+.loading{
+  margin-left: 300px;
+}
+
 </style>
