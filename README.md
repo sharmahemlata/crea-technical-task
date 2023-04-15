@@ -2,10 +2,30 @@
 # _CREA Technical Assignment_
 -  [Assignment Description](https://energyandcleanair.notion.site/Technical-Assignment-Software-Engineer-314bdd68862b400d90f76ed445be46bd)
  
-### Task 1: Help Rosa store files for her experiments
+## Task 1: Help Rosa store files for her experiments
+Objective: Find a **low-cost** storage solution to help rosa store hundereds of GiBs of python generatored files **easily** 
+
+#### Solution 1: [Cloud Firestore](https://firebase.google.com/docs/firestore/)
+- Pros
+    - Firestore is serverless, so are only charged for the reads and writes. It makes it [low cost](https://cloud.google.com/firestore/pricing). 
+    - Firebase has a [python client](https://firebase.google.com/docs/reference/admin/python/), therefore the file uploading can be automated using python. 
+    - Firestore is serverless 
+- Cons
+
+
+#### Solution 2: [GCP Buckets](https://cloud.google.com/storage/docs/buckets)
+
+- Pros
+    - [Low Cost](https://cloud.google.com/storage/pricing#regions) 
+    - Buckets offer different storage classes, depending on frequency of reads and writes![bucket-storage-classes](images/bucket-storage-classes.png)
+    - GCP has [python client](https://github.com/googleapis/google-cloud-python#google-cloud-python-client), therefore the file uploading can be automated using python. 
+- Cons
+    - Cannot have nested buckets
+
+
 
 ---
-### Task 2: Collect Ozone mass mixing ratio at 850hPa
+## Task 2: Collect Ozone mass mixing ratio at 850hPa
 
 #### Prerequisites
 - [Python3](https://www.python.org/downloads/)
@@ -49,9 +69,11 @@ ls
 crea_env  download.nc  get_03_mass_mixing.py  out.png  out.tiff  requirements.txt
 ```
 ---
-### Task 3 [Option B]: Create a new trajectory dashboard
+## Task 3 [Option B]: Create a new trajectory dashboard
 
 #### Prerequites 
+
+#### Setup 
 
 - Navigate to trajectories dashboard
 ```bash
@@ -61,7 +83,9 @@ cd trajectories-dashboard
 ```bash
 npm install
 ```
-- Compile and Hot-Reload for Development
+#### Compile and Hot-Reload for Development
+
+- In trajectories-dashboard, execute
 ```bash
 npm run  dev
 ```
