@@ -56,7 +56,6 @@ export default {
                   }
                   this.trajectories.push(this.apiResponse[i].geometry.coordinates)
                 }
-                console.log(this.trajectories.length)
                 this.polylines = this.trajectories
                }
         },
@@ -77,7 +76,6 @@ export default {
               {
                 this.queryUrl = 'https://api.energyandcleanair.org/v1/trajectories?location_id=' +
                           this.city.id + '&date=' +  moment.utc(this.date).format('YYYY-MM-DD')
-                console.log(this.queryUrl)
                 axios.get(this.queryUrl)
                 .then(response => {
                   if (response.data.data)
