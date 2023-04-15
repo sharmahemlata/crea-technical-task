@@ -1,6 +1,6 @@
 <script>
 
-import moment from 'moment'
+import moment from 'moment';
 import DatePicker from 'vue2-datepicker';
 import axios from 'axios';
 import Multiselect from 'vue-multiselect'
@@ -44,6 +44,7 @@ export default {
                },
                date : function (val) {
                 if (val){
+                  this.date = moment.utc(val).format('YYYY-MM-DD')
                   this.queryChanged()
                 }
                },
@@ -61,7 +62,7 @@ export default {
         },
 
         mounted() {
-          axios.get('https://api.energyandcleanair.org:443/cities')
+          axios.get(import.meta.env.VITE_CITIES_URL)
           .then(response => {
             this.cities = response.data.data
             this.city = this.cities[0]
@@ -74,8 +75,7 @@ export default {
           queryChanged(data){
              if (this.date && this.city)
               {
-                this.queryUrl = 'https://api.energyandcleanair.org/v1/trajectories?location_id=' +
-                          this.city.id + '&date=' +  moment.utc(this.date).format('YYYY-MM-DD')
+                this.queryUrl = import.meta.env.VITE_TRAJECTORY_URL.replace('CITY_ID',this.city.id).replace('DATE',this.date)
                 axios.get(this.queryUrl)
                 .then(response => {
                   if (response.data.data)
@@ -85,8 +85,8 @@ export default {
                   }
                   else
                   {
-                      console.log('No data')
-                      this.message='Data not available for ' + this.city.name + ' on ' + moment.utc(this.date).format('YYYY-MM-DD')
+                      this.polylines=[]
+                      this.message='Data not available for ' + this.city.name + ' on ' + this.date
                   }
                 })
                 .catch(e => {
